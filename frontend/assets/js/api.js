@@ -2,7 +2,7 @@
  * api.js — Centralized fetch() wrapper with JWT token management.
  */
 
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = 'https://margin-job-application-copilot.onrender.com/api';
 
 // ── Token Management ─────────────────────────────────────────────────────
 
