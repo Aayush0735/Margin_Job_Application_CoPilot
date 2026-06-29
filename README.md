@@ -1,4 +1,4 @@
-# Applify
+# Margin
 
 > A multi-agent AI system that turns your resume + a job description into a complete, tailored application kit — fit analysis, resume rewrite, cover letter, and mock interview Q&A.
 
