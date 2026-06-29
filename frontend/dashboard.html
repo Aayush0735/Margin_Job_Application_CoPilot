@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Margin</title>
+  <link rel="stylesheet" href="assets/css/main.css?v=5" />
+  <link rel="stylesheet" href="assets/css/components.css?v=5" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
+  <script src="assets/js/theme.js?v=5"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="/dashboard.html" class="nav-brand">
+    <div class="nav-logo">◆</div>
+    <span class="hide-mobile">Margin</span>
+  </a>
+
+  <div class="nav-actions">
+    <button id="theme-toggle" class="btn btn-ghost btn-sm" style="font-size:1.1rem; padding:0 8px;">🌙</button>
+    <div class="nav-avatar" id="nav-avatar">?</div>
+    <span class="hide-mobile" style="font-size:0.85rem;color:var(--text-2);font-weight:500" id="nav-name"></span>
+    <button class="btn btn-ghost btn-sm" id="logout-btn">Sign out</button>
+  </div>
+</nav>
+
+<!-- Layout -->
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section-label">Workspace</div>
+    <a href="/dashboard.html" class="sidebar-link active">
+      <span class="sidebar-link-icon">◫</span> Applications
+    </a>
+    <a href="/api/docs" target="_blank" class="sidebar-link">
+      <span class="sidebar-link-icon">⌗</span> API docs
+    </a>
+
+    <div style="flex:1"></div>
+    <div class="sidebar-section-label">Account</div>
+    <a href="/profile.html" class="sidebar-link">
+      <span class="sidebar-link-icon">⚙️</span> Settings
+    </a>
+    <button class="sidebar-link" id="sidebar-logout">
+      <span class="sidebar-link-icon">→</span> Sign out
+    </button>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-box-value" style="color:var(--text-1)" id="stat-total">0</div>
+        <div class="stat-box-label">Total roles</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-value" style="color:#3b82f6" id="stat-applied">0</div>
+        <div class="stat-box-label">Applied</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-value" style="color:#a855f7" id="stat-interviewing">0</div>
+        <div class="stat-box-label">Interviewing</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-value" style="color:var(--green)" id="stat-offered">0</div>
+        <div class="stat-box-label">Offered</div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between gap-4 mb-4" style="margin-bottom:20px;flex-wrap:wrap">
+      <div>
+        <h1 style="font-size:1.4rem;font-weight:800;letter-spacing:-0.03em">Applications</h1>
+        <p style="font-size:0.8rem;color:var(--text-3);margin-top:2px"><span id="apps-count">0</span> roles tracked</p>
+      </div>
+      <button class="btn btn-primary" id="new-app-btn">
+        <span style="font-size:1rem;line-height:1">+</span> New application
+      </button>
+    </div>
+
+    <!-- Search + Filter -->
+    <div class="flex gap-3 mb-4" style="margin-bottom:16px;flex-wrap:wrap">
+      <input type="search" id="search-input" class="input" placeholder="Search roles or companies…" style="flex:1;min-width:180px" />
+      <select id="filter-status" class="select" style="width:180px">
+        <option value="">All statuses</option>
+        <option value="not_yet">Not applied</option>
+        <option value="applied">Applied</option>
+        <option value="interviewing">Interviewing</option>
+        <option value="offered">Offered</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+
+    <!-- List -->
+    <div id="apps-list"></div>
+
+    <!-- Empty -->
+    <div id="empty-state" class="empty-state hidden">
+      <span class="empty-icon">📭</span>
+      <h2 class="empty-title">No applications yet</h2>
+      <p class="empty-desc">Add your first role to start generating your AI application kit.</p>
+      <button class="btn btn-primary btn-lg" id="new-app-btn-empty">+ Create first application</button>
+    </div>
+
+  </main>
+</div>
+
+<!-- New App Modal -->
+<div class="modal-overlay" id="new-app-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-size:1.05rem;font-weight:800;letter-spacing:-0.02em">New Application</h3>
+      <button class="btn btn-ghost btn-icon" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:16px">
+      <form id="new-app-form" style="display:flex;flex-direction:column;gap:14px">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="label" for="new-title">Job title</label>
+            <input type="text" id="new-title" class="input" placeholder="e.g. Software Engineer" required />
+          </div>
+          <div class="form-group">
+            <label class="label" for="new-company">Company</label>
+            <input type="text" id="new-company" class="input" placeholder="e.g. Stripe" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="new-url">Job URL <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-4)">(optional — paste to auto-fill)</span></label>
+          <div class="flex gap-2">
+            <input type="url" id="new-url" class="input" placeholder="https://linkedin.com/jobs/view/…" style="flex:1" />
+            <button type="button" class="btn btn-secondary btn-sm" id="scrape-btn" style="white-space:nowrap">Scrape JD</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="new-jd">Job description <span style="color:var(--red)">*</span></label>
+          <textarea id="new-jd" class="textarea" rows="7" placeholder="Paste the full job description here…" required style="min-height:160px"></textarea>
+        </div>
+
+        <div class="modal-footer" style="padding:0;margin-top:4px">
+          <button type="button" class="btn btn-ghost btn-sm" id="modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create application</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+<script type="module">
+import { applications, auth, getUser, isLoggedIn, scrapeJD } from './assets/js/api.js?v=2';
+import { showToast } from './assets/js/toast.js?v=2';
+
+if (!isLoggedIn()) window.location.href = '/index.html';
+
+const user = getUser();
+let allApps = [];
+
+// Nav
+if (user) {
+  document.getElementById('nav-name').textContent = user.full_name;
+  document.getElementById('nav-avatar').textContent = (user.full_name?.[0] || '?').toUpperCase();
+}
+document.getElementById('logout-btn').addEventListener('click', () => { localStorage.clear(); window.location.href = '/index.html'; });
+document.getElementById('sidebar-logout').addEventListener('click', () => { localStorage.clear(); window.location.href = '/index.html'; });
+
+// Load apps
+async function loadApps() {
+  const list = document.getElementById('apps-list');
+  list.innerHTML = `<div class="flex items-center gap-3" style="padding:20px;color:var(--text-3)"><span class="spinner spinner-md"></span> Loading…</div>`;
+  try {
+    allApps = await applications.list();
+    render(allApps);
+    updateStats(allApps);
+  } catch (err) {
+    list.innerHTML = `<div class="empty-state"><span class="empty-icon">⚠️</span><p class="empty-title">${err.message}</p></div>`;
+  }
+}
+
+function render(apps) {
+  const list  = document.getElementById('apps-list');
+  const empty = document.getElementById('empty-state');
+  document.getElementById('apps-count').textContent = apps.length;
+
+  if (!apps.length) { list.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  list.innerHTML = apps.map(a => cardHTML(a)).join('');
+
+  list.querySelectorAll('[data-id]').forEach(el => {
+    el.addEventListener('click', e => {
+      if (e.target.closest('select') || e.target.closest('button')) return;
+      window.location.href = `/application.html?id=${el.dataset.id}`;
+    });
+  });
+  list.querySelectorAll('[data-del]').forEach(btn => {
+    btn.addEventListener('click', async e => {
+      e.stopPropagation();
+      if (!confirm('Delete this application and all its drafts?')) return;
+      try { await applications.delete(btn.dataset.del); showToast('Deleted', 'info'); await loadApps(); }
+      catch(err) { showToast(err.message, 'error'); }
+    });
+  });
+  list.querySelectorAll('[data-status]').forEach(sel => {
+    sel.addEventListener('change', async e => {
+      e.stopPropagation();
+      try { await applications.update(sel.dataset.status, { status: sel.value }); showToast('Status updated', 'success'); }
+      catch(err) { showToast(err.message, 'error'); }
+    });
+  });
+}
+
+function cardHTML(a) {
+  const initial = (a.company[0] || '?').toUpperCase();
+  const date    = new Date(a.created_at).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+  const pipelineLabel = { pending:'Not started', running:'Running…', done:'Complete', failed:'Failed' }[a.pipeline_status] || a.pipeline_status;
+  const pipelineColor = { pending:'var(--text-3)', running:'var(--amber)', done:'var(--green)', failed:'var(--red)' }[a.pipeline_status];
+  const colors = ['#7c3aed','#0284c7','#059669','#d97706','#db2777','#dc2626'];
+  const color  = colors[(a.company.charCodeAt(0) || 0) % colors.length];
+  const statusOpts = ['not_yet','applied','interviewing','offered','rejected'];
+  const statusLabels = { not_yet:'Not applied', applied:'Applied', interviewing:'Interviewing', offered:'Offered', rejected:'Rejected' };
+
+  return `<div class="role-card" data-id="${a.id}" style="cursor:pointer">
+    <div class="role-card-logo" style="background:${color}">${initial}</div>
+    <div class="role-card-info">
+      <div class="role-card-title">${esc(a.job_title)}</div>
+      <div class="role-card-company">${esc(a.company)}</div>
+      <div class="role-card-meta">
+        <span style="color:${pipelineColor}">${pipelineLabel}</span>
+        <span>${date}</span>
+      </div>
+    </div>
+    <div class="role-card-actions">
+      <select class="select" data-status="${a.id}" style="width:140px;padding:6px 30px 6px 10px;font-size:0.78rem" onclick="event.stopPropagation()">
+        ${statusOpts.map(s => `<option value="${s}"${a.status===s?' selected':''}>${statusLabels[s]}</option>`).join('')}
+      </select>
+      <button class="btn btn-ghost btn-icon btn-sm" data-del="${a.id}" title="Delete" onclick="event.stopPropagation()" style="color:var(--text-3)">✕</button>
+    </div>
+  </div>`;
+}
+
+function updateStats(apps) {
+  const c = { total: apps.length, applied:0, interviewing:0, offered:0 };
+  apps.forEach(a => { if(a.status==='applied') c.applied++; if(a.status==='interviewing') c.interviewing++; if(a.status==='offered') c.offered++; });
+  Object.entries(c).forEach(([k,v]) => { const el=document.getElementById(`stat-${k}`); if(el) el.textContent=v; });
+}
+
+// Search/Filter
+function applyFilter() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const s = document.getElementById('filter-status').value;
+  render(allApps.filter(a => (!q || a.job_title.toLowerCase().includes(q) || a.company.toLowerCase().includes(q)) && (!s || a.status===s)));
+}
+document.getElementById('search-input').addEventListener('input', applyFilter);
+document.getElementById('filter-status').addEventListener('change', applyFilter);
+
+// Modal
+const modal = document.getElementById('new-app-modal');
+const openModal = () => modal.classList.add('open');
+const closeModal = () => modal.classList.remove('open');
+document.getElementById('new-app-btn').addEventListener('click', openModal);
+document.getElementById('new-app-btn-empty')?.addEventListener('click', openModal);
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if(e.target===modal) closeModal(); });
+
+// Scrape
+document.getElementById('scrape-btn').addEventListener('click', async () => {
+  const url = document.getElementById('new-url').value.trim();
+  if (!url) { showToast('Enter a URL first', 'warning'); return; }
+  const btn = document.getElementById('scrape-btn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  try {
+    const r = await scrapeJD(url);
+    document.getElementById('new-jd').value = r.jd_text;
+    if (r.title) document.getElementById('new-title').value = r.title;
+    if (r.company) document.getElementById('new-company').value = r.company;
+    showToast('Job description extracted', 'success');
+  } catch(err) { showToast('Scrape failed: '+err.message, 'error'); }
+  finally { btn.disabled=false; btn.textContent='Scrape JD'; }
+});
+
+// New app form
+document.getElementById('new-app-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = e.target.querySelector('[type=submit]');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Creating…';
+  try {
+    const app = await applications.create({
+      job_title: document.getElementById('new-title').value.trim(),
+      company:   document.getElementById('new-company').value.trim(),
+      jd_text:   document.getElementById('new-jd').value.trim(),
+      jd_url:    document.getElementById('new-url').value.trim() || null,
+    });
+    closeModal();
+    showToast('Application created', 'success');
+    setTimeout(() => window.location.href = `/application.html?id=${app.id}`, 400);
+  } catch(err) { showToast(err.message, 'error'); btn.disabled=false; btn.textContent='Create application'; }
+});
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+loadApps();
+</script>
+</body>
+</html>

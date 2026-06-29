@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Margin</title>
+  <meta name="description" content="Simple, transparent pricing for Margin." />
+  <link rel="stylesheet" href="assets/css/main.css?v=5" />
+  <link rel="stylesheet" href="assets/css/components.css?v=5" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
+  <script src="assets/js/theme.js?v=5"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" style="position:fixed;top:0;width:100%;z-index:50;background:rgba(var(--bg-0-rgb), 0.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+  <a href="/" class="nav-brand">
+    <div class="nav-logo">◆</div>
+    Margin
+  </a>
+
+  <div class="nav-links hide-mobile">
+    <a href="index.html#how-it-works" class="nav-link">How it works</a>
+    <a href="about.html" class="nav-link">About Us</a>
+      </div>
+
+  <div class="nav-actions">
+    <button id="theme-toggle" class="btn btn-ghost btn-sm" style="font-size:1.1rem; padding:0 8px;">🌙</button>
+    <a href="login.html" class="btn btn-ghost btn-sm" id="nav-login">Sign in</a>
+    <a href="login.html" class="btn btn-primary btn-sm" id="nav-signup">Get started</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" style="padding-top:160px; padding-bottom:60px; min-height:auto;">
+  <div class="hero-glow hero-glow-1"></div>
+
+  <div class="hero-eyebrow z-1 animate-fade-up">
+    Simple Pricing
+  </div>
+
+  <h1 class="z-1 animate-fade-up" style="animation-delay: 0.1s; font-size:3.5rem; line-height:1.1;">
+    Invest in your <span class="text-gradient">career.</span>
+  </h1>
+
+  <p class="hero-subtitle z-1 animate-fade-up" style="animation-delay: 0.2s;">
+    Choose the plan that fits your job search. No hidden fees. Cancel anytime.
+  </p>
+</section>
+
+<!-- Pricing Cards -->
+<section class="section reveal-on-scroll" style="padding:40px 20px 100px;">
+  <div class="container" style="display:flex; gap:32px; flex-wrap:wrap; justify-content:center;">
+
+    <!-- Free Tier -->
+    <div class="card" style="flex:1; min-width:300px; max-width:400px; padding:40px; border-radius:16px;">
+      <h3 style="font-size:1.5rem; margin-bottom:8px;">Basic</h3>
+      <div style="font-size:2.5rem; font-weight:800; margin-bottom:24px;">$0<span style="font-size:1rem; color:var(--text-3); font-weight:400;">/mo</span></div>
+      <p style="color:var(--text-2); margin-bottom:32px; font-size:0.9rem;">Perfect for casual job seekers.</p>
+
+      <a href="login.html" class="btn btn-secondary btn-full" style="margin-bottom:32px; padding:12px;">Get Started</a>
+
+      <div style="display:flex; flex-direction:column; gap:16px; font-size:0.9rem;">
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--text-3);">✔️</span> 2 AI applications / month</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--text-3);">✔️</span> Fit Analysis Score</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--text-3);">✔️</span> Basic Resume Rewrite</div>
+        <div style="display:flex; align-items:center; gap:12px; color:var(--text-3);"><span style="opacity:0.3;">❌</span> Cover Letter Generation</div>
+        <div style="display:flex; align-items:center; gap:12px; color:var(--text-3);"><span style="opacity:0.3;">❌</span> Interview Prep Kit</div>
+      </div>
+    </div>
+
+    <!-- Pro Tier -->
+    <div class="card" style="flex:1; min-width:300px; max-width:400px; padding:40px; border-radius:16px; border:2px solid var(--brand); box-shadow:var(--shadow-glow); position:relative;">
+      <div style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--brand); color:#fff; padding:4px 16px; border-radius:20px; font-size:0.8rem; font-weight:700;">MOST POPULAR</div>
+      <h3 style="font-size:1.5rem; margin-bottom:8px;">Pro</h3>
+      <div style="font-size:2.5rem; font-weight:800; margin-bottom:24px;">$15<span style="font-size:1rem; color:var(--text-3); font-weight:400;">/mo</span></div>
+      <p style="color:var(--text-2); margin-bottom:32px; font-size:0.9rem;">For serious professionals hunting aggressively.</p>
+
+      <a href="login.html" class="btn btn-primary btn-full" style="margin-bottom:32px; padding:12px;">Go Pro</a>
+
+      <div style="display:flex; flex-direction:column; gap:16px; font-size:0.9rem;">
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--brand);">✔️</span> Unlimited applications</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--brand);">✔️</span> Deep Fit Analysis</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--brand);">✔️</span> Advanced Resume Rewrite</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--brand);">✔️</span> Personalized Cover Letters</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--brand);">✔️</span> 10 Mock Interview Q&A</div>
+        <div style="display:flex; align-items:center; gap:12px;"><span style="color:var(--brand);">✔️</span> Downloadable Word Docs</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="padding:40px 32px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; background:var(--bg-0);">
+  <div class="nav-brand" style="text-decoration:none; color:var(--text-2); font-size:0.875rem;">
+    <div class="nav-logo" style="width:22px; height:22px; font-size:10px;">◆</div>
+    Margin
+  </div>
+  <div style="display:flex; gap:24px; font-size:0.85rem; color:var(--text-3);">
+    <a href="/api/docs" style="color:var(--text-3); text-decoration:none;" target="_blank">API Docs</a>
+    <a href="privacy.html" style="color:var(--text-3); text-decoration:none;">Privacy Policy</a>
+    <a href="terms.html" style="color:var(--text-3); text-decoration:none;">Terms of Service</a>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => { observer.observe(el); });
+  });
+</script>
+</body>
+</html>

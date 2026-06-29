@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Margin — Your application, marked up properly.</title>
+  <meta name="description" content="Margin analyzes your resume against any job description and marks up exactly what needs to change. Tailored resume, cover letter, and interview prep — in under 2 minutes." />
+  <meta name="theme-color" content="#F7F4ED" />
+
+  <!-- Preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="assets/css/main.css?v=9" />
+  <link rel="stylesheet" href="assets/css/components.css?v=9" />
+
+  <!-- Pen-nib favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒</text></svg>" />
+
+  <!-- Immediately apply theme before page renders -->
+  <script src="assets/js/theme.js?v=6"></script>
+
+  <style>
+    /* Page-level overrides for landing only */
+    body { background: var(--paper); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────────────────────────────── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-brand" aria-label="Margin home">
+    <span class="nav-logo" aria-hidden="true">
+      <!-- Pen nib icon -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+      </svg>
+    </span>
+    Margin
+  </a>
+
+  <div class="nav-links hide-mobile" role="list">
+    <a href="#how-it-works" class="nav-link" role="listitem">How it works</a>
+    <a href="#why" class="nav-link" role="listitem">Why Margin</a>
+
+    <a href="about.html" class="nav-link" role="listitem">About</a>
+  </div>
+
+  <div class="nav-actions">
+    <button
+      id="theme-toggle"
+      class="btn btn-ghost btn-icon btn-sm"
+      aria-label="Switch to dark mode"
+      title="Toggle theme"
+    >
+      <!-- Filled by theme.js -->
+    </button>
+    <a href="login.html" class="btn btn-ghost btn-sm" id="nav-login">Sign in</a>
+    <a href="login.html" class="btn btn-primary btn-sm" id="nav-signup">Get started</a>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-inner">
+
+    <!-- Left column: copy -->
+    <div class="hero-text">
+      <div class="hero-eyebrow animate-fade-up">
+        <span class="hero-eyebrow-line" aria-hidden="true"></span>
+        Document Intelligence
+      </div>
+
+      <h1 class="animate-fade-up" style="animation-delay:0.08s">
+        Your application,<br>
+        <span class="text-accent">marked up properly.</span>
+      </h1>
+
+      <p class="hero-subtitle animate-fade-up" style="animation-delay:0.16s">
+        Paste a job description. Margin reads your resume against it and
+        tells you exactly what to change — keywords, weak verbs,
+        missing experience. Then rewrites it for you.
+      </p>
+
+      <div class="hero-actions animate-fade-up" style="animation-delay:0.24s">
+        <a href="login.html" class="btn btn-primary btn-lg" id="hero-cta-primary">
+          Analyse my resume
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#how-it-works" class="btn btn-secondary btn-lg" id="hero-cta-secondary">See how it works</a>
+      </div>
+
+      <p class="hero-microcopy animate-fade-up" style="animation-delay:0.32s">
+        No credit card required &nbsp;·&nbsp; Results in under 2 minutes
+      </p>
+    </div>
+
+    <!-- Right column: annotated resume signature element -->
+    <div class="hero-visual animate-fade-up" style="animation-delay:0.2s">
+      <div class="resume-mockup" role="img" aria-label="Example of Margin's resume annotations">
+
+        <!-- Doc header -->
+        <div class="resume-mockup-header">
+          <div class="resume-doc-dot" aria-hidden="true"></div>
+          <div class="resume-doc-dot" aria-hidden="true"></div>
+          <span class="resume-doc-filename">resume_v3_final.pdf</span>
+          <span class="resume-score-badge">Match Score&nbsp;&nbsp;94</span>
+        </div>
+
+        <!-- Resume body -->
+        <div class="resume-body" aria-hidden="true">
+
+          <!-- Experience section -->
+          <div>
+            <div class="resume-section-label">Experience</div>
+
+            <div class="resume-line" style="margin-bottom:10px; font-weight:600; color:var(--ink);">
+              Software Engineer &mdash; Acme Corp &nbsp;<span style="font-weight:400;color:var(--ink-faint);font-size:0.75rem;">2021&ndash;Present</span>
+            </div>
+
+            <!-- Line 1: weak verb replaced -->
+            <div class="resume-line" style="margin-bottom:12px; position:relative; padding-top:1.6em;">
+              <span class="redline">
+                Helped build
+                <span class="redline-replace">Engineered</span>
+              </span>
+              &nbsp;a microservices architecture that reduced API response time
+              by <span class="keyword-highlight">40%</span>.
+            </div>
+
+            <!-- Line 2: has a margin note -->
+            <div class="resume-line" style="margin-bottom:12px; position:relative;">
+              <span>Worked on backend services using Python and PostgreSQL</span>
+              <span class="margin-note-wrap" aria-hidden="true">
+                <span class="margin-note-line"></span>
+                <span class="margin-note">add a number here</span>
+              </span>
+            </div>
+
+            <!-- Line 3: keyword inserted -->
+            <div class="resume-line" style="margin-bottom:4px;">
+              Collaborated with design to ship 3 features using
+              <span class="keyword-highlight">React</span>
+              &amp; TypeScript, lifting NPS by 12 points.
+            </div>
+          </div>
+
+          <!-- Skills section -->
+          <div>
+            <div class="resume-section-label">Skills</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+              <span style="font-family:var(--font-mono);font-size:0.7rem;padding:2px 8px;border-radius:3px;background:var(--positive-soft);color:var(--positive);border:1px solid rgba(61,107,79,0.18);">Python</span>
+              <span style="font-family:var(--font-mono);font-size:0.7rem;padding:2px 8px;border-radius:3px;background:var(--positive-soft);color:var(--positive);border:1px solid rgba(61,107,79,0.18);">React</span>
+              <span style="font-family:var(--font-mono);font-size:0.7rem;padding:2px 8px;border-radius:3px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(193,67,43,0.18);">Kubernetes</span>
+              <span style="font-family:var(--font-mono);font-size:0.7rem;padding:2px 8px;border-radius:3px;background:var(--positive-soft);color:var(--positive);border:1px solid rgba(61,107,79,0.18);">TypeScript</span>
+            </div>
+          </div>
+
+        </div><!-- /.resume-body -->
+
+        <!-- Floating margin annotation below card, positioned absolute -->
+        <div style="position:absolute;right:-8px;bottom:36px;display:flex;align-items:center;gap:6px;" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" style="color:var(--accent);opacity:0.5;" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 10 C4 10, 14 10, 16 4" stroke-dasharray="3 2"/>
+          </svg>
+          <span style="font-family:var(--font-hand);font-size:0.9rem;color:var(--accent);transform:rotate(1deg);display:inline-block;">missing keyword: Kubernetes ↑</span>
+        </div>
+
+      </div><!-- /.resume-mockup -->
+    </div><!-- /.hero-visual -->
+
+  </div><!-- /.hero-inner -->
+</section>
+
+<!-- ── Social Proof ─────────────────────────────────────────────────────── -->
+<div class="proof-bar reveal-on-scroll" role="complementary" aria-label="Social proof">
+  Professionals hired at
+  <div class="proof-bar-logos" aria-hidden="true">
+    <span>Acme Corp</span>
+    <span>Initech</span>
+    <span>Globex</span>
+    <span>Umbrella</span>
+    <span>Soylent</span>
+  </div>
+</div>
+
+<!-- ── Why Margin — 3 features with hairline dividers ──────────────────── -->
+<section id="why" class="section features-section reveal-on-scroll" aria-labelledby="why-heading">
+  <div style="max-width:1240px;margin:0 auto;padding:0 var(--s-8);">
+
+    <div class="features-header">
+      <div>
+        <div class="section-eyebrow">Why Margin</div>
+        <h2 id="why-heading">The red pen your<br>application needed.</h2>
+      </div>
+      <p class="features-header-desc">
+        Generic resume advice is useless. Margin reads the actual job description
+        you're applying to and marks up your resume against it — like a sharp editor
+        who's read the brief.
+      </p>
+    </div>
+
+    <div class="features-cols">
+      <!-- Feature 1 -->
+      <div class="feature-col">
+        <div class="feature-icon-wrap" aria-hidden="true">
+          <!-- Clock / time icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Two minutes, not two hours</h3>
+        <p>
+          Stop manually tweaking bullet points for each application.
+          Margin runs the analysis and rewrites automatically — the kind of
+          targeted tailoring that used to take an evening.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-col">
+        <div class="feature-icon-wrap" aria-hidden="true">
+          <!-- Target/keyword icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+          </svg>
+        </div>
+        <h3>Exact keywords, not guesses</h3>
+        <p>
+          We find the specific terms missing from your resume and weave them in
+          where they belong. ATS filters are predictable — once you know what
+          they're looking for.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-col">
+        <div class="feature-icon-wrap" aria-hidden="true">
+          <!-- Mic / interview icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <h3>Walk in prepared</h3>
+        <p>
+          Passing the ATS is step one. Margin generates the 10 questions
+          the hiring manager is almost certain to ask — with STAR-method
+          talking points mapped to your specific experience.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Educational / Detail Section ────────────────────────────────────── -->
+<section id="level-up" class="section reveal-on-scroll" style="background:var(--paper); padding:100px 0;" aria-labelledby="levelup-heading">
+  <div class="container">
+    <div class="section-eyebrow">Build a stronger application</div>
+    <h2 id="levelup-heading" style="max-width:20ch; margin-bottom:64px;">Three things<br>that actually move the needle.</h2>
+
+    <div style="display:flex; gap:32px; flex-wrap:wrap; text-align:left;">
+
+      <!-- Card 1 -->
+      <div class="card" style="flex:1; min-width:280px; padding:var(--s-8);">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <h3 style="font-size:1.2rem; margin-bottom:var(--s-3);">Targeted resumes</h3>
+        <p style="color:var(--ink-soft); line-height:1.7; font-size:0.9375rem;">
+          The same resume sent to 50 companies doesn't work anymore.
+          Margin rewrites your bullet points to explicitly reference the
+          tech stack and priorities from the job description — bridging
+          the gap between "candidate" and "obvious fit."
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card" style="flex:1; min-width:280px; padding:var(--s-8);">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3 style="font-size:1.2rem; margin-bottom:var(--s-3);">The cover letter bridge</h3>
+        <p style="color:var(--ink-soft); line-height:1.7; font-size:0.9375rem;">
+          Your resume shows what you've done. The cover letter explains
+          why it matters <em>to them</em>. Margin connects your past
+          projects directly to the company's current pain points — making
+          your application hard to put down.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card" style="flex:1; min-width:280px; padding:var(--s-8);">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h3 style="font-size:1.2rem; margin-bottom:var(--s-3);">Interview mastery</h3>
+        <p style="color:var(--ink-soft); line-height:1.7; font-size:0.9375rem;">
+          Clearing the ATS filter is only step one. Reviewing predicted
+          behavioral and technical questions means you walk into the room
+          with pre-prepared, STAR-method answers aligned to the specific role.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works — 4 steps ───────────────────────────────────────────── -->
+<section id="how-it-works" class="section process-section reveal-on-scroll" aria-labelledby="process-heading" style="border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:100px 0;">
+
+  <div style="max-width:1240px; margin:0 auto; padding:0 var(--s-8); margin-bottom:56px;">
+    <div class="section-eyebrow">The process</div>
+    <h2 id="process-heading">Four steps to a stronger application.</h2>
+  </div>
+
+  <div class="process-track" role="list">
+
+    <!-- Step 01 -->
+    <div class="process-step" role="listitem">
+      <div class="process-step-num" aria-hidden="true">01</div>
+      <div class="process-step-title">Upload your resume</div>
+      <p class="process-step-desc">Drop your current PDF. No special format required — we read it as-is.</p>
+    </div>
+
+    <!-- Step 02 -->
+    <div class="process-step" role="listitem">
+      <div class="process-step-num" aria-hidden="true">02</div>
+      <div class="process-step-title">Paste the job description</div>
+      <p class="process-step-desc">Copy the full listing. The more detail, the more precise the match.</p>
+    </div>
+
+    <!-- Step 03 — active step -->
+    <div class="process-step active" role="listitem">
+      <div class="process-step-num" aria-hidden="true">03</div>
+      <div class="process-step-title">Analysis runs</div>
+      <p class="process-step-desc">Four agents read both documents and identify gaps, keywords, and weak phrasing.</p>
+    </div>
+
+    <!-- Step 04 -->
+    <div class="process-step" role="listitem">
+      <div class="process-step-num" aria-hidden="true">04</div>
+      <div class="process-step-title">Download your kit</div>
+      <p class="process-step-desc">Tailored resume, cover letter, and interview prep — ready to go.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA Band ─────────────────────────────────────────────────────────── -->
+<section class="cta-band reveal-on-scroll" aria-labelledby="cta-heading">
+  <div class="cta-band-inner">
+    <h2 id="cta-heading">Ready to submit<br>something you're proud of?</h2>
+    <p style="margin-bottom:var(--s-8);">
+      Most applications fail before a human reads them.
+      Margin makes sure yours doesn't.
+    </p>
+    <a href="login.html" class="btn btn-primary btn-xl" id="cta-final-btn">
+      Create a free account
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p style="margin-top:var(--s-4); font-family:var(--font-mono); font-size:0.7rem; color:var(--ink-faint); letter-spacing:0.06em;">
+      Built on leading open models &nbsp;·&nbsp; No credit card required
+    </p>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+
+    <!-- Brand column -->
+    <div class="footer-brand">
+      <a href="/" class="nav-brand" aria-label="Margin home">
+        <span class="nav-logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+          </svg>
+        </span>
+        Margin
+      </a>
+      <p>Your application, marked up properly.</p>
+    </div>
+
+    <!-- Product links -->
+    <div class="footer-col">
+      <h5>Product</h5>
+      <a href="#how-it-works">How it works</a>
+
+      <a href="dashboard.html">Dashboard</a>
+      <a href="application.html">Application</a>
+    </div>
+
+    <!-- Company links -->
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="about.html">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+    </div>
+
+    <!-- Legal links -->
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <a href="/api/docs" target="_blank" rel="noopener">API Docs</a>
+      <a href="privacy.html" style="color:var(--text-3); text-decoration:none;">Privacy Policy</a>
+      <a href="terms.html" style="color:var(--text-3); text-decoration:none;">Terms of Service</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copyright">&copy; 2026 Margin. All rights reserved.</span>
+    <span class="footer-copyright">Made with intent.</span>
+  </div>
+</footer>
+
+<script>
+  // ── Intersection Observer for scroll reveals ──────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animate once only
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    } else {
+      // Immediately show all for reduced motion users
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('visible'));
+    }
+
+    // ── Smooth scroll for anchor links ──────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

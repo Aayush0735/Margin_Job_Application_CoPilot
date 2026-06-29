@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Margin</title>
+  <meta name="description" content="Learn about Margin's mission and the AI technology powering our application kits." />
+  <link rel="stylesheet" href="assets/css/main.css?v=5" />
+  <link rel="stylesheet" href="assets/css/components.css?v=5" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
+  <script src="assets/js/theme.js?v=5"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" style="position:fixed;top:0;width:100%;z-index:50;background:rgba(var(--bg-0-rgb), 0.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+  <a href="/" class="nav-brand">
+    <div class="nav-logo">◆</div>
+    Margin
+  </a>
+
+  <div class="nav-links hide-mobile">
+    <a href="index.html#how-it-works" class="nav-link">How it works</a>
+    <a href="about.html" class="nav-link">About Us</a>
+      </div>
+
+  <div class="nav-actions">
+    <button id="theme-toggle" class="btn btn-ghost btn-sm" style="font-size:1.1rem; padding:0 8px;">🌙</button>
+    <a href="login.html" class="btn btn-ghost btn-sm" id="nav-login">Sign in</a>
+    <a href="login.html" class="btn btn-primary btn-sm" id="nav-signup">Get started</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" style="padding-top:160px; padding-bottom:60px; min-height:auto;">
+  <div class="hero-glow hero-glow-1"></div>
+
+  <div class="hero-eyebrow z-1 animate-fade-up">
+    Our Mission
+  </div>
+
+  <h1 class="z-1 animate-fade-up" style="animation-delay: 0.1s; font-size:3.5rem; line-height:1.1;">
+    Leveling the <span class="text-gradient">playing field.</span>
+  </h1>
+
+  <p class="hero-subtitle z-1 animate-fade-up" style="animation-delay: 0.2s;">
+    We believe securing an interview shouldn't be a full-time job. Margin automates the grueling task of tailoring your application, so you can focus on what matters: the interview.
+  </p>
+</section>
+
+<!-- Content Section -->
+<section class="section reveal-on-scroll" style="padding:40px 20px 100px;">
+  <div class="container" style="max-width:800px; display:flex; flex-direction:column; gap:48px;">
+
+    <div style="background:var(--bg-1); padding:40px; border-radius:16px; border:1px solid var(--border);">
+      <h2 style="font-size:2rem; margin-bottom:16px;">The ATS Problem</h2>
+      <p style="color:var(--text-2); font-size:1.05rem; line-height:1.8;">
+        Modern Applicant Tracking Systems (ATS) automatically discard up to 75% of resumes before a human ever sees them. Often, highly qualified candidates are rejected simply because they lacked the specific phrasing or keywords the recruiter programmed into the system. Manually tailoring your resume to every job description takes hours—time you could spend networking or preparing for interviews.
+      </p>
+    </div>
+
+    <div style="background:var(--bg-1); padding:40px; border-radius:16px; border:1px solid var(--border);">
+      <h2 style="font-size:2rem; margin-bottom:16px;">Our Technology</h2>
+      <p style="color:var(--text-2); font-size:1.05rem; line-height:1.8;">
+        Margin is powered by <strong>Llama-3.3-70b</strong>, running on ultra-fast Groq infrastructure. But we don't just use a single, generic prompt. We orchestrated a pipeline of <strong>four specialized AI agents</strong>:
+      </p>
+      <ul style="margin-top:16px; padding-left:24px; color:var(--text-2); font-size:1.05rem; line-height:1.8; display:flex; flex-direction:column; gap:12px;">
+        <li><strong>Fit Analyst:</strong> Scans the job description against your resume to identify missing critical skills.</li>
+        <li><strong>Resume Architect:</strong> Strategically injects those missing skills into your existing bullet points naturally, ensuring you pass the ATS without hallucinating fake experience.</li>
+        <li><strong>Cover Letter Writer:</strong> Drafts a highly persuasive letter highlighting exactly why your past projects match their current needs.</li>
+        <li><strong>Interviewer:</strong> Predicts the toughest behavioral and technical questions the hiring manager will ask you based on your newly tailored resume.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="padding:40px 32px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; background:var(--bg-0);">
+  <div class="nav-brand" style="text-decoration:none; color:var(--text-2); font-size:0.875rem;">
+    <div class="nav-logo" style="width:22px; height:22px; font-size:10px;">◆</div>
+    Margin
+  </div>
+  <div style="display:flex; gap:24px; font-size:0.85rem; color:var(--text-3);">
+    <a href="/api/docs" style="color:var(--text-3); text-decoration:none;" target="_blank">API Docs</a>
+    <a href="privacy.html" style="color:var(--text-3); text-decoration:none;">Privacy Policy</a>
+    <a href="terms.html" style="color:var(--text-3); text-decoration:none;">Terms of Service</a>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => { observer.observe(el); });
+  });
+</script>
+</body>
+</html>

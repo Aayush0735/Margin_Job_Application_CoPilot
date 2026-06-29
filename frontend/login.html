@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Margin — AI-Powered Application Kit</title>
+  <meta name="description" content="Upload your resume and job description. Our 4-agent AI generates a fit analysis, tailored resume, cover letter, and interview prep in under 2 minutes." />
+  <link rel="stylesheet" href="assets/css/main.css?v=5" />
+  <link rel="stylesheet" href="assets/css/components.css?v=5" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
+  <script src="assets/js/theme.js?v=5"></script>
+</head>
+<body>
+
+<!-- ── Navbar ─────────────────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    <div class="nav-logo">◆</div>
+    Margin
+  </a>
+
+  <div class="nav-links hide-mobile">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#pipeline" class="nav-link">How it works</a>
+  </div>
+
+  <div class="nav-actions">
+    <button id="theme-toggle" class="btn btn-ghost btn-sm" style="font-size:1.1rem; padding:0 8px;">🌙</button>
+    <a href="login.html" class="btn btn-ghost btn-sm" id="nav-login">Sign in</a>
+    <a href="login.html" class="btn btn-primary btn-sm" id="nav-signup">Get started</a>
+  </div>
+</nav>
+
+<!-- ── Auth ────────────────────────────────────────────────────────────────── -->
+<div class="auth-split" id="auth-section" style="min-height:auto">
+
+  <!-- Left: Marketing -->
+  <div class="auth-left">
+    <div class="auth-left-glow"></div>
+    <div class="z-1">
+      <div class="nav-brand" style="margin-bottom:40px">
+        <div class="nav-logo">◆</div>
+        Margin
+      </div>
+      <h2 style="font-size:1.8rem">Start building<br />better applications.</h2>
+      <p class="section-sub" style="margin-top:12px;font-size:0.9rem">Free to use. No limits on applications.</p>
+
+      <div class="auth-feature-list">
+        <div class="auth-feature">
+          <div class="auth-feature-check">✓</div>
+          <p><strong>Fit score in seconds</strong> — know if you're a strong match before investing time</p>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-check">✓</div>
+          <p><strong>Zero invented experience</strong> — every agent works from your actual resume</p>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-check">✓</div>
+          <p><strong>Regenerate any section</strong> — re-run one agent without redoing the pipeline</p>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-check">✓</div>
+          <p><strong>Download ready artifacts</strong> — .docx files formatted and ready to send</p>
+        </div>
+        <div class="auth-feature">
+          <div class="auth-feature-check">✓</div>
+          <p><strong>Track every role</strong> — full job search pipeline from one dashboard</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Form -->
+  <div class="auth-right">
+    <div class="auth-form-container">
+      <h3 style="font-size:1.4rem;margin-bottom:6px">Create your account</h3>
+      <p style="font-size:0.875rem;color:var(--text-2);margin-bottom:28px">Already have an account? <button class="btn-ghost" style="color:var(--violet-light);font-size:0.875rem;padding:0;border:none;cursor:pointer;font-weight:600;background:none" id="switch-to-login">Sign in instead</button></p>
+
+      <!-- Auth Tabs -->
+      <div class="auth-tab-list">
+        <button class="auth-tab" id="tab-login">Sign in</button>
+        <button class="auth-tab active" id="tab-register">Create account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="hidden" style="display:none;flex-direction:column;gap:16px">
+        <div class="form-group">
+          <label class="label" for="login-email">Email address</label>
+          <input type="email" id="login-email" class="input" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label class="label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="input" placeholder="Enter your password" required autocomplete="current-password" />
+        </div>
+        <button type="submit" id="login-btn" class="btn btn-primary btn-full" style="margin-top:4px;padding:12px;font-size:0.925rem" data-label="Sign in →">
+          Sign in →
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" style="display:flex;flex-direction:column;gap:14px">
+        <div class="form-group">
+          <label class="label" for="reg-name">Full name</label>
+          <input type="text" id="reg-name" class="input" placeholder="Your full name" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label class="label" for="reg-email">Email address</label>
+          <input type="email" id="reg-email" class="input" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label class="label" for="reg-password">Password</label>
+          <input type="password" id="reg-password" class="input" placeholder="Minimum 6 characters" minlength="6" required autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label class="label" for="reg-confirm">Confirm password</label>
+          <input type="password" id="reg-confirm" class="input" placeholder="Repeat password" minlength="6" required autocomplete="new-password" />
+        </div>
+        <button type="submit" id="register-btn" class="btn btn-primary btn-full" style="margin-top:4px;padding:12px;font-size:0.925rem" data-label="Create account →">
+          Create account →
+        </button>
+        <p style="font-size:0.75rem;color:var(--text-3);text-align:center;margin-top:4px">
+          By creating an account you agree to our Terms of Service.
+        </p>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer style="padding:32px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <div class="nav-brand" style="text-decoration:none;color:var(--text-2);font-size:0.875rem">
+    <div class="nav-logo" style="width:22px;height:22px;font-size:10px">◆</div>
+    Margin
+  </div>
+  <div style="display:flex;gap:20px;font-size:0.8rem;color:var(--text-3)">
+    <a href="/api/docs" style="color:var(--text-3);text-decoration:none" target="_blank">API docs</a>
+    <span>Built with FastAPI + Groq llama-3.3-70b</span>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+
+<script type="module">
+import { auth, isLoggedIn } from './assets/js/api.js?v=2';
+import { showToast } from './assets/js/toast.js?v=2';
+
+if (isLoggedIn()) window.location.href = '/dashboard.html';
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// Tab switching
+const tabLogin = document.getElementById('tab-login');
+const tabRegister = document.getElementById('tab-register');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const switchToLogin = document.getElementById('switch-to-login');
+
+function showLogin() {
+  tabLogin.classList.add('active'); tabRegister.classList.remove('active');
+  loginForm.style.display = 'flex'; registerForm.style.display = 'none';
+  loginForm.classList.remove('hidden');
+  document.querySelector('.auth-form-container h3').textContent = 'Welcome back';
+  document.querySelector('.auth-form-container p').innerHTML = 'New here? <button class="btn-ghost" style="color:var(--violet-light);font-size:0.875rem;padding:0;border:none;cursor:pointer;font-weight:600;background:none" id="switch-to-reg">Create an account</button>';
+  document.getElementById('switch-to-reg')?.addEventListener('click', showRegister);
+}
+
+function showRegister() {
+  tabRegister.classList.add('active'); tabLogin.classList.remove('active');
+  registerForm.style.display = 'flex'; loginForm.style.display = 'none';
+  loginForm.classList.add('hidden');
+  document.querySelector('.auth-form-container h3').textContent = 'Create your account';
+  document.querySelector('.auth-form-container p').innerHTML = 'Already have an account? <button class="btn-ghost" style="color:var(--violet-light);font-size:0.875rem;padding:0;border:none;cursor:pointer;font-weight:600;background:none" id="switch-to-login2">Sign in instead</button>';
+  document.getElementById('switch-to-login2')?.addEventListener('click', showLogin);
+}
+
+tabLogin.addEventListener('click', showLogin);
+tabRegister.addEventListener('click', showRegister);
+switchToLogin?.addEventListener('click', showLogin);
+
+// CTAs → scroll to auth
+['hero-cta','nav-signup','nav-login'].forEach(id => {
+  document.getElementById(id)?.addEventListener('click', e => {
+    e.preventDefault();
+    if (id === 'nav-login') showLogin();
+    document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Login
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('login-btn');
+  const orig = btn.textContent;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Signing in...';
+  try {
+    await auth.login(
+      document.getElementById('login-email').value.trim(),
+      document.getElementById('login-password').value
+    );
+    showToast('Welcome back!', 'success');
+    setTimeout(() => window.location.href = '/dashboard.html', 500);
+  } catch (err) {
+    showToast(err.message || 'Login failed', 'error');
+    btn.disabled = false; btn.textContent = orig;
+  }
+});
+
+// Register
+registerForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('register-btn');
+  const orig = btn.textContent;
+  const pw = document.getElementById('reg-password').value;
+  const cf = document.getElementById('reg-confirm').value;
+
+  if (pw !== cf) { showToast('Passwords do not match', 'error'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Creating account...';
+  try {
+    await auth.register(
+      document.getElementById('reg-email').value.trim(),
+      document.getElementById('reg-name').value.trim(),
+      pw
+    );
+    showToast('Account created! Redirecting...', 'success');
+    setTimeout(() => window.location.href = '/dashboard.html', 600);
+  } catch (err) {
+    showToast(err.message || 'Registration failed', 'error');
+    btn.disabled = false; btn.textContent = orig;
+  }
+});
+</script>
+</body>
+</html>

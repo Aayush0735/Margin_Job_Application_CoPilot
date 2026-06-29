@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application — Margin</title>
+  <link rel="stylesheet" href="assets/css/main.css?v=7" />
+  <link rel="stylesheet" href="assets/css/components.css?v=7" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
+  <script src="assets/js/theme.js?v=5"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="flex items-center gap-3">
+    <a href="/dashboard.html" class="nav-brand">
+      <div class="nav-logo">◆</div>
+    </a>
+    <a href="/dashboard.html" style="color:var(--text-2);text-decoration:none;font-size:0.9rem;font-weight:500;display:flex;align-items:center;gap:4px">
+      ← Dashboard
+    </a>
+  </div>
+
+  <!-- We will dynamically inject App Title here via JS -->
+  <div id="nav-app-info" class="flex-1 px-4 hide-mobile"></div>
+
+  <div class="nav-actions">
+    <!-- Status Select -->
+    <div class="select-wrapper hide-mobile" style="width:140px">
+      <select id="app-status-select" class="select" style="padding:0 30px 0 12px;height:32px;font-size:0.85rem">
+        <option value="not_yet">Not applied</option>
+        <option value="applied">Applied</option>
+        <option value="interviewing">Interviewing</option>
+        <option value="offered">Offered</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+    <button id="theme-toggle" class="btn btn-ghost btn-sm" style="font-size:1.1rem; padding:0 8px;">🌙</button>
+    <div class="nav-avatar" id="nav-avatar">?</div>
+    <button class="btn btn-ghost btn-sm" id="logout-btn">Sign out</button>
+  </div>
+</nav>
+
+<!-- Content -->
+<div style="padding-top:60px">
+<div class="container" style="padding-top:24px;padding-bottom:60px">
+
+  <div class="app-detail-grid">
+
+    <!-- ── Left Panel ──────────────────────────────────────────────────── -->
+    <div>
+      <div class="app-panel-left">
+
+        <!-- JD -->
+        <div class="app-panel-section">
+          <div class="panel-label">Job description</div>
+          <div id="jd-preview" style="font-size:0.8rem;color:var(--text-2);line-height:1.65;max-height:160px;overflow:hidden;position:relative">
+            <div id="jd-text">—</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--bg-2))"></div>
+          </div>
+        </div>
+
+        <!-- Upload -->
+        <div class="app-panel-section">
+          <div class="panel-label">Resume PDF</div>
+          <div class="upload-zone" id="upload-zone">
+            <input type="file" id="resume-file" accept=".pdf" />
+            <div style="font-size:1.5rem;margin-bottom:8px">📄</div>
+            <div style="font-size:0.85rem;font-weight:600;color:var(--text-1)">Drop PDF here</div>
+            <div style="font-size:0.77rem;color:var(--text-3);margin-top:4px">or click to browse</div>
+          </div>
+          <div id="file-name" class="hidden" style="font-size:0.78rem;color:var(--violet-light);margin-top:8px;text-align:center"></div>
+          <div id="prev-resume" class="hidden" style="font-size:0.75rem;color:var(--text-3);margin-top:6px;text-align:center"></div>
+        </div>
+
+        <!-- Run -->
+        <div class="app-panel-section">
+          <button class="btn btn-primary btn-full" id="run-btn" style="padding:12px;font-size:0.925rem">
+            Run AI pipeline
+          </button>
+          <p style="font-size:0.72rem;color:var(--text-4);text-align:center;margin-top:8px">60–90 seconds · 4 agents</p>
+        </div>
+
+        <!-- Progress (hidden) -->
+        <div id="progress-panel" class="hidden app-panel-section">
+          <div class="panel-label">Pipeline progress</div>
+          
+          <div class="pipeline-progress-container" id="pipeline-progress-bar-container">
+            <div class="pipeline-progress-header">
+              <span id="pipeline-progress-text">Starting...</span>
+              <span id="pipeline-progress-pct">0%</span>
+            </div>
+            <div class="pipeline-progress-track">
+              <div class="pipeline-progress-fill" id="pipeline-progress-fill"></div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:0;padding-left:8px;">
+            <div class="pipeline-step" id="ps-fit">
+              <div class="pipeline-step-icon">🎯</div>
+              <div class="pipeline-step-content">
+                <div class="pipeline-step-title">Fit Analysis</div>
+                <div class="pipeline-step-desc">Extracting skills and comparing with JD...</div>
+              </div>
+            </div>
+            <div class="pipeline-step" id="ps-resume">
+              <div class="pipeline-step-icon">✍️</div>
+              <div class="pipeline-step-content">
+                <div class="pipeline-step-title">Resume Rewrite</div>
+                <div class="pipeline-step-desc">Injecting keywords and optimizing bullet points...</div>
+              </div>
+            </div>
+            <div class="pipeline-step" id="ps-cover">
+              <div class="pipeline-step-icon">📄</div>
+              <div class="pipeline-step-content">
+                <div class="pipeline-step-title">Cover Letter</div>
+                <div class="pipeline-step-desc">Drafting a personalized narrative...</div>
+              </div>
+            </div>
+            <div class="pipeline-step" id="ps-interview">
+              <div class="pipeline-step-icon">🎤</div>
+              <div class="pipeline-step-content">
+                <div class="pipeline-step-title">Interview Prep</div>
+                <div class="pipeline-step-desc">Generating predicted Q&A based on fit gaps...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Right Panel ─────────────────────────────────────────────────── -->
+    <div>
+
+      <!-- Placeholder -->
+      <div class="ready-panel" id="placeholder">
+        <div style="font-size:2rem;margin-bottom:14px">🤖</div>
+        <h2 style="font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px">Ready to generate</h2>
+        <p style="font-size:0.875rem;color:var(--text-2);max-width:360px;margin:0 auto">
+          Upload your resume PDF and click <strong style="color:var(--text-0)">Run AI pipeline</strong> to generate your full application kit.
+        </p>
+        <div class="ready-artifacts">
+          <div class="ready-artifact"><span class="ready-artifact-icon">🎯</span>Fit Analysis</div>
+          <div class="ready-artifact"><span class="ready-artifact-icon">✍️</span>Resume Rewrite</div>
+          <div class="ready-artifact"><span class="ready-artifact-icon">📄</span>Cover Letter</div>
+          <div class="ready-artifact"><span class="ready-artifact-icon">🎤</span>10 Q&amp;A</div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="hidden">
+
+        <!-- Tabs -->
+        <div class="tab-list" style="margin-bottom:20px">
+          <button class="tab-btn active" data-tab="fit">🎯 Fit Analysis</button>
+          <button class="tab-btn" data-tab="resume">✍️ Resume</button>
+          <button class="tab-btn" data-tab="cover">📄 Cover Letter</button>
+          <button class="tab-btn" data-tab="interview">🎤 Interview</button>
+        </div>
+
+        <!-- TAB: Fit -->
+        <div class="tab-panel active" id="tab-fit">
+          <div class="card">
+            <div class="card-header">
+              <h3 style="font-size:0.95rem">Fit Analysis</h3>
+              <button class="btn btn-ghost btn-sm" data-regen="fit">↺ Regenerate</button>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:24px">
+
+              <!-- Score row -->
+              <div class="score-display">
+                <div class="score-circle">
+                  <svg viewBox="0 0 88 88" width="88" height="88">
+                    <defs>
+                      <linearGradient id="score-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#7c3aed"/>
+                        <stop offset="100%" stop-color="#06b6d4"/>
+                      </linearGradient>
+                    </defs>
+                    <circle class="score-circle-bg" cx="44" cy="44" r="35"/>
+                    <circle class="score-circle-fill" cx="44" cy="44" r="35" id="score-arc" style="stroke-dashoffset:220"/>
+                  </svg>
+                  <div class="score-circle-text">
+                    <span class="score-number" id="score-num">0</span>
+                    <span class="score-pct">/ 100</span>
+                  </div>
+                </div>
+                <div style="flex:1">
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Match summary</div>
+                  <p id="fit-summary" style="font-size:0.875rem;color:var(--text-2);line-height:1.65"></p>
+                </div>
+              </div>
+
+              <!-- Matched -->
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">✓ Matched skills</div>
+                <div class="skill-tags" id="matched-skills"></div>
+              </div>
+
+              <!-- Gaps -->
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">✗ Skill gaps</div>
+                <div class="skill-tags" id="skill-gaps"></div>
+              </div>
+
+              <!-- Keywords -->
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:var(--violet-light);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">◇ Keywords to add</div>
+                <div class="skill-tags" id="kw-tags"></div>
+              </div>
+
+              <!-- Emphasis -->
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">→ What to emphasise</div>
+                <div id="emphasis-list"></div>
+              </div>
+
+              <!-- Red flags -->
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">⚠ Red flags</div>
+                <div id="red-flags"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Resume -->
+        <div class="tab-panel" id="tab-resume">
+          <div class="card">
+            <div class="card-header">
+              <h3 style="font-size:0.95rem">Resume Rewrite</h3>
+              <div class="flex gap-2">
+                <button class="btn btn-secondary btn-sm" id="dl-resume">⬇ Download .docx</button>
+                <button class="btn btn-ghost btn-sm" data-regen="resume">↺ Regenerate</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="flex gap-2" style="margin-bottom:18px">
+                <button class="btn btn-primary btn-sm" id="diff-view-btn">Diff view</button>
+                <button class="btn btn-secondary btn-sm" id="full-view-btn">Full text</button>
+              </div>
+              <div id="diff-container"></div>
+              <div id="full-container" class="hidden">
+                <pre id="full-text" style="font-family:var(--font-mono);font-size:0.77rem;line-height:1.75;white-space:pre-wrap;color:var(--text-2);background:var(--bg-1);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;max-height:600px;overflow-y:auto"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Cover Letter -->
+        <div class="tab-panel" id="tab-cover">
+          <div class="card">
+            <div class="card-header">
+              <h3 style="font-size:0.95rem">Cover Letter</h3>
+              <div class="flex gap-2">
+                <button class="btn btn-success btn-sm" id="dl-cover">⬇ Download .docx</button>
+                <button class="btn btn-ghost btn-sm" data-regen="cover_letter">↺ Regenerate</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="cover-letter-view" id="cover-letter-text">Loading…</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Interview -->
+        <div class="tab-panel" id="tab-interview">
+          <div class="card">
+            <div class="card-header">
+              <h3 style="font-size:0.95rem">Mock Interview Q&amp;A</h3>
+              <button class="btn btn-ghost btn-sm" data-regen="interview">↺ Regenerate</button>
+            </div>
+            <div class="card-body">
+              <p style="font-size:0.85rem;color:var(--text-2);margin-bottom:18px">10 likely questions with sample answers grounded in your resume. Click to expand.</p>
+              <div class="qa-list" id="qa-list"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /results -->
+    </div><!-- /right -->
+
+  </div>
+</div>
+</div>
+
+<div class="toast-container"></div>
+
+<script type="module">
+import { applications, pipeline, downloadBlob, isLoggedIn, getUser } from './assets/js/api.js?v=2';
+import { showToast } from './assets/js/toast.js?v=2';
+import { renderDiff } from './assets/js/diff.js?v=2';
+
+if (!isLoggedIn()) window.location.href = '/index.html';
+
+const params = new URLSearchParams(location.search);
+const APP_ID = parseInt(params.get('id'));
+if (!APP_ID) location.href = '/dashboard.html';
+
+let app = null, draft = null;
+const user = getUser();
+if (user) document.getElementById('nav-avatar').textContent = (user.full_name?.[0]||'?').toUpperCase();
+document.getElementById('logout-btn').addEventListener('click',()=>{localStorage.clear();location.href='/index.html';});
+
+// ── Load ────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    app = await applications.get(APP_ID);
+    document.title = `${app.job_title} at ${app.company} — Margin`;
+    document.getElementById('nav-app-info').innerHTML = `<span style="font-weight:700">${esc(app.job_title)}</span> <span style="opacity:0.5;margin:0 8px">at</span> <span>${esc(app.company)}</span>`;
+    document.getElementById('app-status-select').value = app.status;
+    document.getElementById('jd-text').textContent = app.jd_text?.slice(0,500) + (app.jd_text?.length > 500 ? '…' : '');
+    if (app.original_resume_filename) {
+      const el = document.getElementById('prev-resume');
+      el.textContent = `Previously uploaded: ${app.original_resume_filename}`;
+      el.classList.remove('hidden');
+    }
+    try {
+      draft = await applications.getLatestDraft(APP_ID);
+      showResults(draft);
+    } catch {}
+  } catch(err) { showToast('Failed to load: '+err.message,'error'); }
+}
+
+// ── Status update ────────────────────────────────────────────────────────────
+document.getElementById('app-status-select').addEventListener('change', async e => {
+  try { await applications.update(APP_ID, { status: e.target.value }); showToast('Status updated','success'); }
+  catch(err) { showToast(err.message,'error'); }
+});
+
+// ── Upload ───────────────────────────────────────────────────────────────────
+const zone  = document.getElementById('upload-zone');
+const input = document.getElementById('resume-file');
+const fname = document.getElementById('file-name');
+zone.addEventListener('dragover', e=>{e.preventDefault();zone.classList.add('drag-over');});
+zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files[0]){input.files=e.dataTransfer.files;setFile(input.files[0].name);}});
+input.addEventListener('change',()=>{if(input.files[0]) setFile(input.files[0].name);});
+function setFile(n){fname.textContent=`📎 ${n}`;fname.classList.remove('hidden');}
+
+// ── Run pipeline ─────────────────────────────────────────────────────────────
+document.getElementById('run-btn').addEventListener('click', async () => {
+  if (!input.files[0]) { showToast('Upload your resume PDF first','warning'); return; }
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Running pipeline…';
+  document.getElementById('progress-panel').classList.remove('hidden');
+  startStepTimer();
+  try {
+    draft = await pipeline.run(APP_ID, input.files[0]);
+    stopStepTimer(true);
+    showToast('Pipeline complete! Your kit is ready.','success');
+    showResults(draft);
+  } catch(err) {
+    stopStepTimer(false);
+    showToast('Pipeline failed: '+err.message,'error');
+  } finally {
+    btn.disabled=false; btn.innerHTML='Run AI pipeline';
+  }
+});
+
+let stepInterval;
+const steps=['ps-fit','ps-resume','ps-cover','ps-interview'];
+const stepLabels=['Fit Analysis','Resume Rewrite','Cover Letter','Interview Prep'];
+let si=0;
+
+function updateProgress(pct, text) {
+  document.getElementById('pipeline-progress-pct').textContent = pct + '%';
+  document.getElementById('pipeline-progress-fill').style.width = pct + '%';
+  if (text) document.getElementById('pipeline-progress-text').textContent = text;
+}
+
+function startStepTimer(){
+  si=0; steps.forEach(s=>document.getElementById(s).className='pipeline-step');
+  document.getElementById(steps[0]).classList.add('active');
+  document.getElementById('pipeline-progress-fill').style.background = 'var(--accent)'; // reset color if failed previously
+  updateProgress(15, 'Running ' + stepLabels[0] + '...');
+  
+  stepInterval=setInterval(()=>{
+    if(si<steps.length-1){ 
+      document.getElementById(steps[si]).className='pipeline-step done'; 
+      si++; 
+      document.getElementById(steps[si]).classList.add('active'); 
+      const pct = Math.floor(15 + (si / steps.length) * 75);
+      updateProgress(pct, 'Running ' + stepLabels[si] + '...');
+    } else {
+      updateProgress(90, 'Finalizing kit...');
+    }
+  },18000);
+}
+function stopStepTimer(success){
+  clearInterval(stepInterval);
+  if (success) {
+    updateProgress(100, 'Complete!');
+    document.getElementById('pipeline-progress-fill').style.background = 'var(--positive)';
+    steps.forEach(s=>{document.getElementById(s).className='pipeline-step done';});
+  } else {
+    updateProgress(100, 'Failed.');
+    document.getElementById('pipeline-progress-fill').style.background = 'var(--accent)';
+    steps.forEach(s=>{const el=document.getElementById(s); el.className='pipeline-step failed';});
+  }
+}
+
+// ── Show results ─────────────────────────────────────────────────────────────
+function showResults(d) {
+  document.getElementById('placeholder').classList.add('hidden');
+  document.getElementById('results').classList.remove('hidden');
+  renderFit(d.fit_analysis);
+  renderResume(d);
+  renderCover(d.cover_letter);
+  renderQA(d.interview_qa);
+  bindDownloads(d);
+}
+
+// Fit
+function renderFit(fit) {
+  if (!fit) return;
+  const score = fit.overall_score||0;
+  document.getElementById('score-num').textContent = score;
+  const circumference = 2*Math.PI*35;
+  const offset = circumference - (score/100)*circumference;
+  document.getElementById('score-arc').style.strokeDasharray = circumference;
+  document.getElementById('score-arc').style.strokeDashoffset = offset;
+  document.getElementById('fit-summary').textContent = fit.match_summary||'';
+
+  const matched = document.getElementById('matched-skills');
+  matched.innerHTML = (fit.matched_skills||[]).map(s=>`<span class="skill-tag matched" title="${esc(s.evidence||'')}">✓ ${esc(s.skill)}</span>`).join('');
+
+  const gaps = document.getElementById('skill-gaps');
+  gaps.innerHTML = (fit.skill_gaps||[]).map(s=>`<span class="skill-tag gap" title="${esc(s.suggestion||'')}">✗ ${esc(s.skill)}</span>`).join('');
+
+  const kw = document.getElementById('kw-tags');
+  kw.innerHTML = (fit.keywords_to_add||[]).map(k=>`<span class="skill-tag keyword">${esc(k)}</span>`).join('');
+
+  const emp = document.getElementById('emphasis-list');
+  emp.innerHTML = (fit.emphasis_points||[]).map(p=>`<div class="emphasis-item"><span class="emphasis-arrow">→</span><span>${esc(p)}</span></div>`).join('');
+
+  const rf = document.getElementById('red-flags');
+  if (fit.red_flags?.length) {
+    rf.innerHTML = fit.red_flags.map(r=>`<div class="flag-item"><span>⚠</span>${esc(r)}</div>`).join('');
+  } else {
+    rf.innerHTML = '<p style="font-size:0.83rem;color:var(--text-3)">No significant red flags identified.</p>';
+  }
+}
+
+// Resume
+function renderResume(d) {
+  const diffEl = document.getElementById('diff-container');
+  renderDiff(d.resume_sections||[], diffEl);
+  document.getElementById('full-text').textContent = d.resume_rewrite||'';
+
+  document.getElementById('diff-view-btn').addEventListener('click',()=>{
+    diffEl.classList.remove('hidden'); document.getElementById('full-container').classList.add('hidden');
+    document.getElementById('diff-view-btn').className='btn btn-primary btn-sm';
+    document.getElementById('full-view-btn').className='btn btn-secondary btn-sm';
+  });
+  document.getElementById('full-view-btn').addEventListener('click',()=>{
+    diffEl.classList.add('hidden'); document.getElementById('full-container').classList.remove('hidden');
+    document.getElementById('full-view-btn').className='btn btn-primary btn-sm';
+    document.getElementById('diff-view-btn').className='btn btn-secondary btn-sm';
+  });
+}
+
+// Cover letter
+function renderCover(text) {
+  document.getElementById('cover-letter-text').textContent = text||'No cover letter generated.';
+}
+
+// Q&A
+function renderQA(qa) {
+  const list = document.getElementById('qa-list');
+  if (!qa?.length) { list.innerHTML='<p style="color:var(--text-3);font-size:0.85rem">No Q&A generated yet.</p>'; return; }
+  const typeColor={behavioural:'badge-violet',technical:'badge-blue',situational:'badge-amber',motivation:'badge-green',growth:'badge-neutral'};
+  list.innerHTML = qa.map((q,i)=>`
+    <div class="qa-item" id="qa-${i}">
+      <div class="qa-trigger" onclick="toggleQA(${i})">
+        <div class="qa-num">${q.id||i+1}</div>
+        <div style="flex:1">
+          <div style="margin-bottom:5px">${esc(q.question)}</div>
+          <span class="badge ${typeColor[q.type]||'badge-neutral'}" style="font-size:0.65rem">${q.type||''}</span>
+          ${q.tests?`<span class="badge badge-neutral" style="font-size:0.65rem;margin-left:4px">${esc(q.tests)}</span>`:''}
+        </div>
+        <span class="qa-chevron">▾</span>
+      </div>
+      <div class="qa-body">
+        <p style="color:var(--text-1)">${esc(q.sample_answer)}</p>
+        ${q.tips?`<div class="qa-tip">💡 ${esc(q.tips)}</div>`:''}
+      </div>
+    </div>`).join('');
+}
+window.toggleQA=i=>document.getElementById(`qa-${i}`)?.classList.toggle('open');
+
+// Downloads
+function bindDownloads(d) {
+  document.getElementById('dl-cover').onclick=async()=>{
+    try{const b=await pipeline.downloadCoverLetter(APP_ID,d.id);downloadBlob(b,`cover_${app.company}.docx`);}catch(err){showToast(err.message,'error');}
+  };
+  document.getElementById('dl-resume').onclick=async()=>{
+    try{const b=await pipeline.downloadResume(APP_ID,d.id);downloadBlob(b,`resume_${app.company}.docx`);}catch(err){showToast(err.message,'error');}
+  };
+}
+
+// Regenerate
+document.querySelectorAll('[data-regen]').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    if(!draft){showToast('Run the full pipeline first','warning');return;}
+    const section=btn.dataset.regen;
+    btn.disabled=true;btn.innerHTML='<span class="spinner"></span>';
+    try{
+      draft=await pipeline.regenerate(APP_ID,section);
+      showResults(draft);
+      showToast('Section regenerated','success');
+    }catch(err){showToast(err.message,'error');}
+    finally{btn.disabled=false;btn.innerHTML='↺ Regenerate';}
+  });
+});
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`tab-${btn.dataset.tab}`)?.classList.add('active');
+  });
+});
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+init();
+</script>
+</body>
+</html>
