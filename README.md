@@ -155,26 +155,33 @@ Applify/
 │   ├── requirements.txt
 │   └── .env.example
 │
-└── frontend/
-    ├── index.html           # Landing + auth
-    ├── dashboard.html       # Role pipeline
-    ├── application.html     # Single role + AI results
-    └── assets/
-        ├── css/
-        │   ├── main.css     # Design system
-        │   └── components.css
-        └── js/
-            ├── api.js       # fetch() + JWT
-            ├── auth.js      # Login/register
-            ├── dashboard.js
-            ├── application.js
-            ├── diff.js      # Resume diff view
-            └── toast.js     # Notifications
+├── docs/
+│   └── Margin_Presentation.pptx # Pitch deck / Presentation
+│
+├── frontend/
+│   ├── index.html           # Landing + auth
+│   ├── dashboard.html       # Role pipeline
+│   ├── application.html     # Single role + AI results
+│   └── assets/
+│       ├── css/
+│       │   ├── main.css     # Design system
+│       │   └── components.css
+│       └── js/
+│           ├── api.js       # fetch() + JWT
+│           ├── auth.js      # Login/register
+│           ├── dashboard.js
+│           ├── application.js
+│           ├── diff.js      # Resume diff view
+│           └── toast.js     # Notifications
+│
+└── scripts/
+    ├── cache_buster.py      # Utility scripts
+    └── ... (other maintenance scripts)
 ```
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 | Method | Path | Description |
 |---|---|---|
