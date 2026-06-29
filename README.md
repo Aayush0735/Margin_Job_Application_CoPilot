@@ -1,4 +1,4 @@
-# 🚀 Applify
+# Applify
 
 > A multi-agent AI system that turns your resume + a job description into a complete, tailored application kit — fit analysis, resume rewrite, cover letter, and mock interview Q&A.
 
@@ -9,7 +9,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
@@ -24,7 +24,7 @@
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 frontend/               ← Vanilla HTML + CSS + JS
@@ -64,7 +64,7 @@ Upload Resume + JD
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone & Set Up Backend
 
@@ -127,7 +127,7 @@ frontend/index.html
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Applify/
@@ -197,7 +197,7 @@ Full interactive docs: [http://localhost:8000/api/docs](http://localhost:8000/ap
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -213,7 +213,7 @@ Full interactive docs: [http://localhost:8000/api/docs](http://localhost:8000/ap
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 | Variable | Description | Default |
 |---|---|---|
@@ -225,7 +225,7 @@ Full interactive docs: [http://localhost:8000/api/docs](http://localhost:8000/ap
 
 ---
 
-## 🧪 Testing the API
+## Testing the API
 
 ```bash
 # Register
@@ -247,7 +247,7 @@ curl -X POST http://localhost:8000/api/applications \
 
 ---
 
-## 📝 Development Notes
+## Development Notes
 
 - The AI pipeline runs **synchronously** in the request. For production, consider Celery + Redis for background task queueing.
 - SQLite is used for simplicity. For production, swap to PostgreSQL by changing `DATABASE_URL`.
@@ -256,6 +256,6 @@ curl -X POST http://localhost:8000/api/applications \
 
 ---
 
-## 📄 License
+## License
 
 MIT — build and sell freely.
