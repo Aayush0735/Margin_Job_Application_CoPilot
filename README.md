@@ -13,14 +13,14 @@
 
 | Feature | Description |
 |---|---|
-| 🎯 **Fit Analysis** | ATS match score, matched skills, gaps, keywords to add |
-| ✍️ **Resume Rewrite** | Tailored bullets with JD keywords, side-by-side diff view |
-| 📄 **Cover Letter** | 1-page, tone-matched, grounded in real experience, download as .docx |
-| 🎤 **Interview Prep** | 10 Q&A (behavioural, technical, situational) with STAR answers |
-| 🔄 **Regenerate** | Re-run any single agent section independently |
-| 🔗 **JD Scraping** | Paste LinkedIn URL → auto-extract job description |
-| 📊 **Pipeline Dashboard** | Track all roles: Not Applied → Applied → Interviewing → Offered |
-| 🔐 **JWT Auth** | Secure multi-user support |
+| **Fit Analysis** | ATS match score, matched skills, gaps, keywords to add |
+| **Resume Rewrite** | Tailored bullets with JD keywords, side-by-side diff view |
+| **Cover Letter** | 1-page, tone-matched, grounded in real experience, download as .docx |
+| **Interview Prep** | 10 Q&A (behavioural, technical, situational) with STAR answers |
+| **Regenerate** | Re-run any single agent section independently |
+| **JD Scraping** | Paste LinkedIn URL → auto-extract job description |
+| **Pipeline Dashboard** | Track all roles: Not Applied → Applied → Interviewing → Offered |
+| **JWT Auth** | Secure multi-user support |
 
 ---
 
